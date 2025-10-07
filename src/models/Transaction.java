@@ -40,7 +40,7 @@ public class Transaction {
         double amount = Double.parseDouble(parts[2]);
         String description = parts[3];
         String category = parts.length > 4 ? parts[4] : "";
-        Transaction t = new Transaction(amount, type, description, category);#
+        Transaction t = new Transaction(amount, type, description, category);
         t.date = date; // Override Date
         return t;
     }
