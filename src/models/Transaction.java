@@ -5,5 +5,5 @@ import java.time.format.DateTimeFormatter;
 
 public class Transaction {
     private double amount;
-    private Strinf type
+    private String type;
 }
