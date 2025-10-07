@@ -45,10 +45,10 @@ public class ExpenseManager {
     public List<Transaction> getTransactionsByCategory(String category){
         return transaction.stream()
                 .filter(t -> t.getCategory().equalsIgnoreCase(category))
-                .collect(Collector.toList());
+                .collect(Collectors.toList());
     }
 
-    public List<Transaction> getAllTransactions(){
+    public String getAllTransactions(){
         // Implement filtering by month, calculate totals
         // For now, placeholder
         return "Monthly summary not implemented yet.";
