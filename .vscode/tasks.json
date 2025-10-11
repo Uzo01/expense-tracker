@@ -1,16 +1,19 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Build and Run Expense Tracker",
-            "type": "shell",
-            "command": "javac -d bin (Get-ChildItem -Recurse -Filter *.java | ForEach-Object { $_.FullName }); if ($?) { java -cp bin Main }",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": "$javac",
-            "detail": "Compiles all Java files and runs Main.java automatically"
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build and Run JavaFX (PowerShell)",
+      "type": "shell",
+      "command": "javac --module-path \"C:\\Libraries\\javafx-sdk-25\\lib\" --add-modules javafx.controls,javafx.fxml -d bin (Get-ChildItem -Recurse -Filter *.java | ForEach-Object { $_.FullName }); if ($?) { java --module-path \"C:\\Libraries\\javafx-sdk-25\\lib\" --add-modules javafx.controls,javafx.fxml -cp bin gui.MainGUI }",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": "$javac"
+    }
+  ]
 }

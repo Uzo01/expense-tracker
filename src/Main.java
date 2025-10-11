@@ -36,26 +36,26 @@ public class Main {
                 case 4:
                     System.out.print("Enter category: ");
                     String cat = scanner.nextLine();
-                    System.out.println("Fetching transactions for category: " + cat);
                     List<Transaction> transByCat = manager.getTransactionsByCategory(cat);
-                    System.out.println("Result list: " + (transByCat != null ? transByCat.size() : "null"));
-                    if (transByCat != null) transByCat.forEach(System.out::println);
-                    else System.out.println("No transactions for category.");
+                    if (transByCat.isEmpty()) System.out.println("No transactions for category.");
+                    else transByCat.forEach(System.out::println);
                     break;
                 case 5:
-                    System.out.println("Fetching all transactions...");
                     List<Transaction> allTrans = manager.getAllTransactions();
-                    System.out.println("Result list: " + (allTrans != null ? allTrans.size() : "null"));
-                    if (allTrans != null) allTrans.forEach(System.out::println);
-                    else System.out.println("No transactions available.");
+                    if (allTrans.isEmpty()) System.out.println("No transactions available.");
+                    else allTrans.forEach(System.out::println);
                     break;
-                case 6: // Assuming you added this for monthly summary
+                case 6:
                     System.out.print("Enter year: ");
                     int year = scanner.nextInt();
                     System.out.print("Enter month (1-12): ");
                     int month = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
-                    manager.getMonthlySummary(year, month).forEach(System.out::println); // Error here
+                    scanner.nextLine();
+                    manager.getMonthlySummary(year, month).forEach(System.out::println);
+                    break;
+                case 7:  // ✅ Exit case
+                    running = false;
+                    System.out.println("Exiting... Goodbye!");
                     break;
                 default:
                     System.out.println("Invalid option.");
