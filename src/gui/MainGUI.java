@@ -1,60 +1,61 @@
 package gui;
 
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import services.ExpenseManager;
-import java.io.IOException;
+import javafx.stage.Stage;
+import services.TransactionManager;
+import javafx.scene.control.ListView;
+import models.Transaction;
 
 public class MainGUI extends Application {
 
-    private ExpenseManager manager = new ExpenseManager();
+    private TransactionManager manager;
 
     @Override
     public void start(Stage primaryStage) {
+        manager = new TransactionManager();
+
         primaryStage.setTitle("Expense Tracker - GUI");
 
         Button addIncome = new Button("Add Income");
         Button addExpense = new Button("Add Expense");
-        Button showAll = new Button("Show All Transactions");
+        Button showAll = new Button("Show Transactions");
+        Button showCharts = new Button("Show Chart");
         Button exit = new Button("Exit");
 
-        addIncome.setOnAction(e -> handleAddIncome());
-        addExpense.setOnAction(e -> handleAddExpense());
+        addIncome.setOnAction(e -> TransactionDialog.show(manager, "income"));
+        addExpense.setOnAction(e -> TransactionDialog.show(manager, "expense"));
         showAll.setOnAction(e -> handleShowAll());
+        showCharts.setOnAction(e -> ChartsWindow.show(manager));
         exit.setOnAction(e -> {
             primaryStage.close();
-            System.exit(0); // ensures full exit
+            System.exit(0);
         });
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(addIncome, addExpense, showAll, exit);
+        layout.getChildren().addAll(addIncome, addExpense, showAll, showCharts, exit);
 
         Scene scene = new Scene(layout, 400, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    // --- Handlers (we’ll make them connect to your logic later) ---
-    private void handleAddIncome() {
-        System.out.println("Income button clicked");
-    }
-
-    private void handleAddExpense() {
-        System.out.println("Expense button clicked");
-    }
-
     private void handleShowAll() {
-        try {
-            manager.getAllTransactions().forEach(System.out::println);
-        } catch (Exception e) {
-            e.printStackTrace();
+        Stage stage = new Stage();
+        stage.setTitle("All Transactions");
+
+        ListView<String> listView = new ListView<>();
+        for (Transaction t : manager.getAllTransactions()) {
+            listView.getItems().add(t.toString());
         }
+
+        Scene scene = new Scene(listView, 500, 400);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    // 👇 This is your main entry point!
     public static void main(String[] args) {
         launch(args);
     }

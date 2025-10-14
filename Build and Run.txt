@@ -1,0 +1,16 @@
+cmd
+
+rmdir /s /q bin
+mkdir bin
+build
+javac --module-path "C:\Libraries\javafx-sdk-25\lib" --add-modules javafx.controls,javafx.fxml -d bin src\*.java src\gui\*.java src\models\*.java src\services\*.java src\utils\*.java
+Run
+java --module-path "C:\Libraries\javafx-sdk-25\lib" --add-modules javafx.controls,javafx.fxml -cp bin gui.MainGUI
+Run Console
+java -cp bin Main
+
+small batch file called run.bat with
+@echo off
+javac --module-path "C:\Libraries\javafx-sdk-25\lib" --add-modules javafx.controls,javafx.fxml -d bin src\*.java src\gui\*.java src\models\*.java src\services\*.java src\utils\*.java
+java --module-path "C:\Libraries\javafx-sdk-25\lib" --add-modules javafx.controls,javafx.fxml -cp bin gui.MainGUI
+pause

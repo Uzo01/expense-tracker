@@ -2,18 +2,24 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build and Run JavaFX (PowerShell)",
+      "label": "Build Expense Tracker",
       "type": "shell",
-      "command": "javac --module-path \"C:\\Libraries\\javafx-sdk-25\\lib\" --add-modules javafx.controls,javafx.fxml -d bin (Get-ChildItem -Recurse -Filter *.java | ForEach-Object { $_.FullName }); if ($?) { java --module-path \"C:\\Libraries\\javafx-sdk-25\\lib\" --add-modules javafx.controls,javafx.fxml -cp bin gui.MainGUI }",
+      "command": "if (Test-Path bin) { Remove-Item -Recurse -Force bin }; mkdir bin; Get-ChildItem -Recurse -Filter *.java src | ForEach-Object { javac --module-path \"C:\\Libraries\\javafx-sdk-25\\lib\" --add-modules javafx.controls,javafx.fxml -d bin $_.FullName }",
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Expense Tracker GUI",
+      "type": "shell",
+      "command": "java --module-path \"C:\\Libraries\\javafx-sdk-25\\lib\" --add-modules javafx.controls,javafx.fxml -cp bin gui.MainGUI",
+      "group": {
+        "kind": "test",
+        "isDefault": true
       },
-      "problemMatcher": "$javac"
+      "dependsOn": "Build Expense Tracker"
     }
   ]
 }
